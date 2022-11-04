@@ -13,13 +13,7 @@ jobs:
     steps:
       - uses: step-security/harden-runner@int
         with:
-          egress-policy: block
-          allowed-endpoints: 
-           int.api.stepsecurity.io:443
-           codecov.io:443
-           github.com:443
-           nodejs.org:443
-           registry.npmjs.org:443
+          egress-policy: audit
       
       #- name: remove sudo
       # run: sudo rm /etc/sudoers.d/runner
