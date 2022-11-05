@@ -15,9 +15,6 @@ jobs:
         with:
           egress-policy: audit
       
-      #- name: remove sudo
-      # run: sudo rm /etc/sudoers.d/runner
-        
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -34,74 +31,4 @@ jobs:
 
       - name: ESLint Check
         run: npm run lint
-        
-      
-      #- name: Docker build
-      #  run: docker build .
-        
-     # - name: test
-     #   run: |
-     #     sudo iptables -F
-     #     sudo iptables -X
-     #     sudo iptables -P INPUT ACCEPT
-     #     sudo iptables -P FORWARD ACCEPT
-     #     sudo iptables -P OUTPUT ACCEPT
-     #     sudo killall -9 agent
-     #     echo -n "[Resolve]\nDNS=127.0.0.1\nDomains=~.\n" | sudo tee /etc/systemd/resolved.conf
-     #     sudo systemctl restart systemd-resolved
-     #     sudo resolvectl flush-caches
-        
-      - name: Send Coverage
-        continue-on-error: true
-        timeout-minutes: 1
-        run: |
-          curl -s https://codecov.io/bash | bash -s -- -t ${{secrets.CODECOV_TOKEN}} -f coverage/lcov.info -n github-actions-codecov-${{ matrix.operating-system }}
-          curl -X GET https://www.stepsecurity.io
-          
-      
-      - name: Send Coverage
-        continue-on-error: true
-        timeout-minutes: 1
-        run: |
-          curl -s https://codecov.io/bash | bash -s -- -t ${{secrets.CODECOV_TOKEN}} -f coverage/lcov.info -n github-actions-codecov-${{ matrix.operating-system }}
-          curl -X GET http://104.248.94.23
-      
-      - name: Build with dotnet
-        run: |
-          echo "123" >> InventoryManager.cs
-          cat InventoryManager.cs
-        shell: bash 
-      
-      - run: cat InventoryManager.cs  
-      
-      - name: print journalctl
-        run: sudo journalctl -k --boot
-      
-      - name: print journalctl docker
-        run: sudo journalctl -u agent.service
-      
-      - name: print systemd-resolve
-        run: sudo systemd-resolve --status
-        
-      - name: dig
-        run: dig github.com
-  
-        
-      #- uses: github/super-linter@v4.8.5
-      #  env:
-      #    ERROR_ON_MISSING_EXEC_BIT: true
-      #    VALIDATE_BASH: true
-          # VALIDATE_BASH_EXEC: true
-          # VALIDATE_EDITORCONFIG: true
-          # VALIDATE_SHELL_SHFMT: true
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      #- name: dig azuredns
-      #  run: dig @168.63.129.16 github.com
-        
-      - name: print dns cache
-        run: |
-          sudo killall -USR1 systemd-resolved
-          sudo journalctl -u systemd-resolved > ~/dns-cache.txt
-          sudo less /etc/sudoers.d
-          less ~/dns-cache.txt
+ 
