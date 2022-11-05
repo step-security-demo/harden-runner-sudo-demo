@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: step-security/harden-runner@rc
         with:
+          disable-sudo: true
           egress-policy: audit
       
       - name: Checkout
